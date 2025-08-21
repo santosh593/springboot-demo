@@ -24,7 +24,9 @@ jobs:
         run: ./mvnw clean package -demo=
 
       - name: Build Docker image
-        run: docker build -t springboot-app .
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/springboot-app:latest .
+      - name: Push Docker image
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/springboot-app:latest
 
       - name: Save Docker image
         run: docker save springboot-app | gzip > springboot-app.tar.gz
